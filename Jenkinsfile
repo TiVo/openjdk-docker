@@ -39,16 +39,8 @@ emailBreaks {
                     def image = docker.build("docker.tivo.com/openjdk8:ubuntu-p4", "-f Dockerfile.hotspot.releases.full.p4 --pull .")
                     image.push()
                 }
-                dir('8/jdk/alpine') {
-                    image = docker.build("docker.tivo.com/openjdk8:alpine-maven", "-f Dockerfile.hotspot.releases.full.maven --pull .")
-                    image.push()
-                }
                 dir('11/jdk/ubuntu') {
                     def image = docker.build("docker.tivo.com/openjdk11:ubuntu-p4", "-f Dockerfile.hotspot.releases.full.p4 --pull .")
-                    image.push()
-                }
-                dir('11/jdk/alpine') {
-                    def image = docker.build("docker.tivo.com/openjdk11:alpine-maven", "-f Dockerfile.hotspot.releases.full.maven --pull .")
                     image.push()
                 }
             }
