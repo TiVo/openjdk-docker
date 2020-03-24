@@ -36,19 +36,19 @@ emailBreaks {
 
                 // build images for jenkins builds
                 dir('8/jdk/ubuntu') {
-                    def image = docker.build("docker.tivo.com/openjdk8:ubuntu-p4", "-f Dockerfile.hotspot.releases.full.p4 --pull .")
+                    def image = docker.build("docker.tivo.com/openjdk8:ubuntu-p4", "-f Dockerfile.hotspot.releases.full --pull .")
                     image.push()
-                }
-                dir('8/jdk/alpine') {
-                    image = docker.build("docker.tivo.com/openjdk8:alpine-maven", "-f Dockerfile.hotspot.releases.full.maven --pull .")
-                    image.push()
-                }
-                dir('11/jdk/ubuntu') {
-                    def image = docker.build("docker.tivo.com/openjdk11:ubuntu-p4", "-f Dockerfile.hotspot.releases.full.p4 --pull .")
-                    image.push()
+                    // the 'p4' images were a mistake. you are doing something wrong if you rely on perforce during the build
+                    image.push("ubuntu-p4")
                 }
                 dir('11/jdk/ubuntu') {
                     def image = docker.build("docker.tivo.com/openjdk11:ubuntu", "-f Dockerfile.hotspot.releases.full --pull .")
+                    image.push()
+                    // the 'p4' images were a mistake. you are doing something wrong if you rely on perforce during the build
+                    image.push("ubuntu-p4")
+                }
+                dir('8/jdk/alpine') {
+                    image = docker.build("docker.tivo.com/openjdk8:alpine-maven", "-f Dockerfile.hotspot.releases.full.maven --pull .")
                     image.push()
                 }
                 dir('11/jdk/alpine') {
